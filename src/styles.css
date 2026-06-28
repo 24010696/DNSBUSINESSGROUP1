@@ -1,0 +1,131 @@
+/* Tailwind v4 sources the entire `src` directory by default. */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-deep: var(--brand-green-deep);
+  --color-brand-red: var(--brand-red);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-cream: var(--brand-cream);
+
+  --shadow-elegant: 0 30px 60px -30px color-mix(in oklab, var(--brand-ink) 35%, transparent);
+  --shadow-soft: 0 10px 30px -15px color-mix(in oklab, var(--brand-ink) 20%, transparent);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --brand-green: oklch(0.56 0.17 150);
+  --brand-green-deep: oklch(0.38 0.12 152);
+  --brand-red: oklch(0.55 0.22 25);
+  --brand-ink: oklch(0.18 0.02 240);
+  --brand-cream: oklch(0.985 0.006 95);
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.18 0.02 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 240);
+  --primary: oklch(0.38 0.12 152);
+  --primary-foreground: oklch(0.985 0.006 95);
+  --secondary: oklch(0.96 0.005 240);
+  --secondary-foreground: oklch(0.18 0.02 240);
+  --muted: oklch(0.96 0.005 240);
+  --muted-foreground: oklch(0.45 0.02 240);
+  --accent: oklch(0.55 0.22 25);
+  --accent-foreground: oklch(0.985 0.006 95);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0.006 95);
+  --border: oklch(0.91 0.01 240);
+  --input: oklch(0.91 0.01 240);
+  --ring: oklch(0.38 0.12 152);
+}
+
+.dark {
+  --background: oklch(0.14 0.02 240);
+  --foreground: oklch(0.98 0.006 95);
+  --card: oklch(0.18 0.02 240);
+  --card-foreground: oklch(0.98 0.006 95);
+  --popover: oklch(0.18 0.02 240);
+  --popover-foreground: oklch(0.98 0.006 95);
+  --primary: oklch(0.56 0.17 150);
+  --primary-foreground: oklch(0.14 0.02 240);
+  --secondary: oklch(0.25 0.02 240);
+  --secondary-foreground: oklch(0.98 0.006 95);
+  --muted: oklch(0.25 0.02 240);
+  --muted-foreground: oklch(0.7 0.02 240);
+  --accent: oklch(0.6 0.22 25);
+  --accent-foreground: oklch(0.98 0.006 95);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.56 0.17 150);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .container-prose {
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  .gradient-brand {
+    background-image: linear-gradient(135deg, var(--brand-green-deep), var(--brand-green));
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
