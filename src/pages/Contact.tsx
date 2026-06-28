@@ -2,14 +2,27 @@ import { useState, type FormEvent } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Seo } from "@/components/Seo";
 import { SITE, DIVISIONS } from "@/lib/site";
-import { Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle2, Send } from "lucide-react";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Frontend stub - replace with actual API call if needed
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name");
+    const phone = formData.get("phone");
+    const email = formData.get("email");
+    const division = formData.get("division");
+    const message = formData.get("message");
+
+    // Construct WhatsApp Message
+    const text = `*New Enquiry: ${division}*\n\n Name: ${name}\n📞 Phone: ${phone}\n📧 Email: ${email}\n\n📝 Message:\n${message}`;
+    
+    // Open WhatsApp with pre-filled message
+    // Note: Uses international format 27723260873
+    window.open(`https://wa.me/27723260873?text=${encodeURIComponent(text)}`, "_blank");
+    
     setSent(true);
   }
 
@@ -52,9 +65,9 @@ export default function Contact() {
           {sent ? (
             <div className="rounded-2xl border border-border bg-card p-10 text-center shadow-soft">
               <CheckCircle2 className="mx-auto h-12 w-12 text-[var(--brand-green)]" />
-              <h3 className="mt-4 font-display text-2xl font-bold">Message received</h3>
+              <h3 className="mt-4 font-display text-2xl font-bold">Message sent</h3>
               <p className="mt-2 text-muted-foreground">
-                Thanks for reaching out. A member of the DNS team will be in touch shortly.
+                Opening WhatsApp with your details. Please press "Send" in the chat to complete your enquiry.
               </p>
             </div>
           ) : (
@@ -72,7 +85,6 @@ export default function Contact() {
                   className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm outline-none ring-ring/30 transition focus:border-primary focus:ring-2"
                 >
                   <option value="General Enquiry">General enquiry</option>
-                  {/* Dynamically map divisions from site.ts (Eatery is excluded here) */}
                   {DIVISIONS.map((div) => (
                     <option key={div.slug} value={div.name}>{div.name}</option>
                   ))}
@@ -89,9 +101,9 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-transform hover:scale-[1.01]"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-6 py-3 text-sm font-semibold text-white shadow-soft transition-transform hover:scale-[1.02]"
               >
-                Send message
+                <Send className="h-4 w-4" /> Send via WhatsApp
               </button>
             </form>
           )}

@@ -7,8 +7,15 @@ import logo from "@/assets/dns-logo.png";
 export function PageShell({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Construct pre-filled message for the header "Get a Quote" button
+  const whatsappQuoteText = encodeURIComponent(
+    "Hi DNS Business Group, I'd like to request a quote for your services. Please let me know the next steps."
+  );
+  const whatsappUrl = `https://wa.me/27723260873?text=${whatsappQuoteText}`;
+
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container-prose flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
@@ -25,7 +32,8 @@ export function PageShell({ children }: { children: React.ReactNode }) {
             {["transportation", "outdoor", "manufacturers", "travel"].map((slug) => (
               <Link key={slug} to={`/${slug}`} className="text-sm font-semibold text-muted-foreground hover:text-[var(--brand-green)] transition-colors capitalize">{slug}</Link>
             ))}
-            <a href={SITE.whatsappHref} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-green)] px-5 py-2.5 text-sm font-bold text-white shadow-soft hover:bg-[var(--brand-green-deep)] transition-all hover:shadow-md">
+            {/* Updated "Get a Quote" button with pre-filled message */}
+            <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-green)] px-5 py-2.5 text-sm font-bold text-white shadow-soft hover:bg-[var(--brand-green-deep)] transition-all hover:shadow-md">
               <Send className="h-4 w-4" /> Get a Quote
             </a>
           </nav>
@@ -35,6 +43,7 @@ export function PageShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border bg-background px-6 py-4 shadow-lg animate-in slide-in-from-top-5">
             <nav className="flex flex-col gap-4">
@@ -43,7 +52,8 @@ export function PageShell({ children }: { children: React.ReactNode }) {
               {["transportation", "outdoor", "manufacturers", "travel"].map((slug) => (
                 <Link key={slug} to={`/${slug}`} className="text-base font-medium capitalize" onClick={() => setMobileMenuOpen(false)}>{slug}</Link>
               ))}
-              <a href={SITE.whatsappHref} className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand-green)] px-4 py-3 text-sm font-bold text-white" onClick={() => setMobileMenuOpen(false)}>
+              {/* Mobile "Get a Quote" button with pre-filled message */}
+              <a href={whatsappUrl} className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--brand-green)] px-4 py-3 text-sm font-bold text-white" onClick={() => setMobileMenuOpen(false)}>
                 <Send className="h-4 w-4" /> WhatsApp Us
               </a>
             </nav>
@@ -51,8 +61,10 @@ export function PageShell({ children }: { children: React.ReactNode }) {
         )}
       </header>
 
+      {/* Main Content */}
       <main className="flex-1">{children}</main>
 
+      {/* Footer */}
       <footer className="border-t border-border bg-[var(--brand-ink)] text-white">
         <div className="container-prose py-16">
           <div className="grid gap-12 md:grid-cols-4">
